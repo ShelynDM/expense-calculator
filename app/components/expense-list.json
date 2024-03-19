@@ -1,0 +1,18 @@
+[
+    {
+        "expenseName": "Rent",
+        "amount": 1000
+    },
+    {
+        "expenseName": "Groceries",
+        "amount": 200
+    },
+    {
+        "expenseName": "Gas",
+        "amount": 100
+    },
+    {
+        "expenseName": "Electricity",
+        "amount": 50
+    }
+]
