@@ -1,61 +1,61 @@
 "use client";
-import { useState } from "react";
-import ExpenseList from "./expense-list";
-
+import ExpenseComponent from './expenseComponent/page'
+//import logo from '../assets/Xtract-logo.png'
+import logo from '../assets/Xtract-logo.svg'
+import { useUserAuth } from "./_utils/auth-context";
 
 export default function Page() {
-    //add code to be able to add another expense name and amount to the json file
-    const [expense, setExpense] = useState(ExpenseList);
-    const [expenseName, setExpenseName] = useState("");
-    const [expenseAmount, setExpenseAmount] = useState(0);
-    const [totalAmount, setTotalAmount] = useState(0);
+    const { user, gitHubSignIn, firebaseSignOut } = useUserAuth();
+    
+    const signIn = async () => {
+        await gitHubSignIn();
+    };
 
-    function handleAddExpense(newExpense) {
-        setExpense([...ExpenseList, newExpense]);
+    const signOut = async () => {
+        await firebaseSignOut();
+    };
 
-    }
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const newExpense = { expenseName: expenseName, amount: expenseAmount };
-        handleAddExpense(newExpense);
-
-        const totalAmount = expense.reduce((total, expense) => total + expense.amount, 0);
-        setTotalAmount(totalAmount + expenseAmount); 
-        
-
-        setExpenseName("");
-        setExpenseAmount(0);
-    }
-
-  return (
-    <div>
-        This is the main Page
-        <form onSubmit={handleSubmit}>
-            <label>
-                Expense Name:
-                <input className=" text-black" type="text" value={expenseName} onChange={(e) => setExpenseName(e.target.value)} />
-            </label>
-            <label>
-                Expense Amount:
-                <input className=" text-black" type='number' value={expenseAmount} onChange={(e) => setExpenseAmount(parseFloat(e.target.value))} />
-            </label>
-            <button type="submit">Add Expense</button>
-        </form>
-            <h2>Expenses</h2>
-            <ul>
-                {expense.map((expense, index) => {
-                    return (
-                        <li key={index}>
-                            {expense.expenseName} - {expense.amount}
-                        </li>
-                    );
-                })}
-            </ul>
+    return (
         <div>
-            <h2>Total Amount: {totalAmount}</h2>
+            {user ? (
+                <div>
+                    <div className=' flex flex-row justify-between p-2 border-b-2 border-white'>
+                        <div>
+                            <p>{user.displayName}</p>
+                            <p>{user.email}</p>
+                        </div>
+                        <div>
+                            <button onClick={signOut} className="p-1 bg-slate-800 hover:bg-red-700 mr-2 ring-1 ring-white">Sign Out</button>
+                        </div>
+                    </div>
+                    <div className='p-4 border-2 border-blue-500 m-4'>
+                        <h1 className="text-center text-3xl font-bold ">Expense Tracker</h1>
+                    </div>
+                    <ExpenseComponent />
+                    <div className=' border-t-2 border-white'>
+                        <p>Footer</p>
+                    </div>    
+                </div>        
+            ) : (
+            <div>
+                <div className=' text-center p-2 border-b-2 border-white'>
+                    <div className='flex flex-row'>
+                        Welcome to Xtract
+                    </div>
+                </div>
+                <div className='p-4 border-2 border-blue-500 m-4'>
+                    <h1 className="text-center text-3xl font-bold ">Expense Tracker</h1>
+                </div>
+                <div className="flex flex-col items-center m-52 ">
+                    <div className="flex justify-end">
+                        <button onClick={signIn} className="m-10 p-4 bg-slate-800 hover:bg-blue-600 ">Sign in with GitHub</button>
+                    </div>
+                </div>
+                <div className=' border-t-2 border-white'>
+                    <p>Footer</p>
+                </div> 
+            </div>
+            )}
         </div>
-
-
-    </div>
-  );
+    );
 }

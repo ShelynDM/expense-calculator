@@ -1,9 +1,10 @@
 import Link from 'next/link';
+import ComponentPage from './components/page';
 
 export default function Page() {
   return (
     <div>
-      <Link href="components">Start</Link>
+      <ComponentPage />
     </div>
   );
 }

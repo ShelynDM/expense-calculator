@@ -1,17 +1,19 @@
 [
     {
+        "id": 1,
         "expenseName": "Rent",
         "amount": 1000
     },
-    {
+    {   "id": 2,
         "expenseName": "Groceries",
         "amount": 200
     },
-    {
+    {   "id": 3,
         "expenseName": "Gas",
         "amount": 100
     },
     {
+        "id": 4,
         "expenseName": "Electricity",
         "amount": 50
     }
