@@ -1,16 +1,4 @@
-// import Link from 'next/link';
-// import ComponentPage from './components/page';
-
-// export default function Page() {
-//   return (
-//     <div>
-//       <ComponentPage />
-//     </div>
-//   );
-// }
-
 "use client";
-//import ExpenseComponent from './assest/components/expenseComponent/page'
 import ExpenseComponent from './components/expenseComponent/page'
 
 //import logo from '../assets/Xtract-logo.png'
