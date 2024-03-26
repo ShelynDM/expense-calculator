@@ -1,9 +1,6 @@
 "use client";
 import ExpenseComponent from './components/expenseComponent/page'
 
-//import logo from '../assets/Xtract-logo.png'
-//import logo from '../assets/Xtract-logo.svg'
-//import { useUserAuth } from "./components/_utils/auth-context";
 import { useUserAuth } from "./components/_utils/auth-context";
 
 export default function Page() {
