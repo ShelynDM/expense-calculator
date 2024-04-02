@@ -1,11 +1,14 @@
 "use client"
 
 import { useEffect, useState } from "react";
+import { getExpenses } from "../_services/expense-list-service";
+import { useUserAuth } from "../_utils/auth-context";
 
 export default function NewExpense({onAddExpense, expense}) {
     const [expenseName, setExpenseName] = useState("");
     const [expenseAmount, setExpenseAmount] = useState(0);
     const [totalAmount, setTotalAmount] = useState(0);
+    const { user } = useUserAuth();
 
     // Function to handle the form submission
     const handleSubmit = (e) => {
@@ -22,8 +25,20 @@ export default function NewExpense({onAddExpense, expense}) {
         onAddExpense(newExpense);
 
         // Calculate the total amount
-        const totalAmount = expense.reduce((total, expense) => total + expense.amount, 0);
-        setTotalAmount(totalAmount + expenseAmount); 
+        // const totalAmount = expense.reduce((total, expense) => total + expense.amount, 0);
+        // setTotalAmount(totalAmount + expenseAmount); 
+
+        // calculate the total expense amount from db
+        getExpenses(user.uid)
+        .then((expenses) => {
+            const totalAmount = expenses.reduce((total, expense) => total + expense.amount, 0);
+            setTotalAmount(totalAmount + expenseAmount);
+        })
+        .catch((error) => {
+            console.error("Error fetching expenses:", error);
+        });
+
+
 
         // Clear the form fields
         setExpenseName("");
@@ -31,16 +46,30 @@ export default function NewExpense({onAddExpense, expense}) {
     };
 
     // Function to calculate the total amount
-    function totalAmountCalculation() {
-        const totalAmount = expense.reduce((total, expense) => total + expense.amount, 0);
-        setTotalAmount(totalAmount);
-    }
+    // function totalAmountCalculation() {
+    //     //const totalAmount = expense.reduce((total, expense) => total + expense.amount, 0);
+    //     const totalAmount = getExpenses(user.uid.expense.amount).reduce((total, expense) => total + expense.amount, 0);
+    //     setTotalAmount(totalAmount);
+    // }
+
 
     // UseEffect hook to calculate the total amount, this will be called whenever the expense array changes
-    useEffect(() => {
-        totalAmountCalculation();
-    }, [totalAmount]);
+    // useEffect(() => {
+    //     totalAmountCalculation();
+    // }, [totalAmount]);
+    // console.log("totalAmount", totalAmount);
 
+    useEffect(() => {
+        // Fetch expenses from the database when the component mounts
+        getExpenses(user.uid)
+            .then((expenses) => {
+                const totalAmount = expenses.reduce((total, expense) => total + expense.amount, 0);
+                setTotalAmount(totalAmount);
+            })
+            .catch((error) => {
+                console.error("Error fetching expenses:", error);
+            });
+    }, []);
     return (
         <div className="flex flex-col w-max">
             <form onSubmit={handleSubmit} >

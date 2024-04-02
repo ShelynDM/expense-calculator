@@ -19,9 +19,3 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
- 
-// const Layout = ({ children }) => {
-//   return <AuthContextProvider>{children}</AuthContextProvider>;
-// };
- 
-// export default Layout;

@@ -23,7 +23,7 @@ export default function Page() {
                             <p>{user.displayName}</p>
                             <p>{user.email}</p>
                         </div>
-                        <div>
+                        <div className='self-center'>
                             <button onClick={signOut} className="p-1 bg-slate-800 hover:bg-red-700 mr-2 ring-1 ring-white">Sign Out</button>
                         </div>
                     </div>
@@ -38,9 +38,7 @@ export default function Page() {
             ) : (
             <div>
                 <div className=' text-center p-2 border-b-2 border-white'>
-                    <div className='flex flex-row'>
                         Welcome to Xtract
-                    </div>
                 </div>
                 <div className='p-4 border-2 border-blue-500 m-4'>
                     <h1 className="text-center text-3xl font-bold ">Expense Tracker</h1>

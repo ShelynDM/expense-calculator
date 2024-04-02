@@ -1,20 +1,37 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ExpenseList from "./expense-list";
 import NewExpense from "./new-expense";
-import ExpenseData from "./expense-list.json";
 import RandomQuotes from "./random-quotes";
+import { getExpenses, addExpense, deleteExpense } from "../_services/expense-list-service";
+import { useUserAuth } from "../_utils/auth-context";
 
 
 export default function Page() {
-    const [expense, setExpense] = useState(ExpenseData);
+    const { user } = useUserAuth();
+    const [expense, setExpense] = useState([]);
+
+    const loadExpenses = async () => {
+      const expenses = await getExpenses(user.uid);
+      setExpense(expenses);
+  };
 
     // Function to handle the addition of a new expense
     function handleAddExpense(newExpense) {
-        setExpense((prevExpense) => {
-            return [...prevExpense, newExpense];
+      addExpense(user.uid, newExpense).then((docRef) => {
+        setExpense((prevItems) => {
+          return [{ id: docRef.id, ...newExpense }, ...prevItems];
         });
+      });
     }
+
+
+
+    useEffect(() => {
+        loadExpenses();
+    }, [user]);
+
+
 
   return (
     <div>
