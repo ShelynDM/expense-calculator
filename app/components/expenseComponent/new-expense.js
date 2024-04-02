@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { getExpenses } from "../_services/expense-list-service";
 import { useUserAuth } from "../_utils/auth-context";
 
-export default function NewExpense({onAddExpense, expense}) {
+export default function NewExpense({onAddExpense}) {
     const [expenseName, setExpenseName] = useState("");
     const [expenseAmount, setExpenseAmount] = useState(0);
     const [totalAmount, setTotalAmount] = useState(0);
@@ -24,9 +24,6 @@ export default function NewExpense({onAddExpense, expense}) {
         const newExpense = { id: newId, expenseName: expenseName, amount: expenseAmount };
         onAddExpense(newExpense);
 
-        // Calculate the total amount
-        // const totalAmount = expense.reduce((total, expense) => total + expense.amount, 0);
-        // setTotalAmount(totalAmount + expenseAmount); 
 
         // calculate the total expense amount from db
         getExpenses(user.uid)
@@ -39,26 +36,12 @@ export default function NewExpense({onAddExpense, expense}) {
         });
 
 
-
         // Clear the form fields
         setExpenseName("");
         setExpenseAmount(0);
     };
 
-    // Function to calculate the total amount
-    // function totalAmountCalculation() {
-    //     //const totalAmount = expense.reduce((total, expense) => total + expense.amount, 0);
-    //     const totalAmount = getExpenses(user.uid.expense.amount).reduce((total, expense) => total + expense.amount, 0);
-    //     setTotalAmount(totalAmount);
-    // }
-
-
-    // UseEffect hook to calculate the total amount, this will be called whenever the expense array changes
-    // useEffect(() => {
-    //     totalAmountCalculation();
-    // }, [totalAmount]);
-    // console.log("totalAmount", totalAmount);
-
+    
     useEffect(() => {
         // Fetch expenses from the database when the component mounts
         getExpenses(user.uid)
@@ -69,7 +52,8 @@ export default function NewExpense({onAddExpense, expense}) {
             .catch((error) => {
                 console.error("Error fetching expenses:", error);
             });
-    }, []);
+    }, [totalAmount]);
+
     return (
         <div className="flex flex-col w-max">
             <form onSubmit={handleSubmit} >
