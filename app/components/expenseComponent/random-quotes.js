@@ -26,4 +26,3 @@ export default function RandomQuotes() {
         </div>
     );
 }
-// try commit

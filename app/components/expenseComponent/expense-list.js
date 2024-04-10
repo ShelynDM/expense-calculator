@@ -6,6 +6,8 @@ import { useState } from "react";
 export default function ExpenseList({expense}) {
   const [sortBy, setSortBy] = useState("expenseName");
 
+
+
   expense.sort((a, b) => {
     if (sortBy === "expenseName") {
       return a.expenseName.localeCompare(b.expenseName);
@@ -15,16 +17,19 @@ export default function ExpenseList({expense}) {
 
   });
 
+
+
+
   return (
     <div className="m-4">
       <div className="flex flex-row justify-between m-2">
         <button onClick={() => setSortBy("expenseName")} style={{backgroundColor: sortBy === "expenseName" ? "#1a6985" : ""}} className=" hover:text-blue-500 p-1" >Sort by Name</button>
         <button onClick={() => setSortBy("amount")} style={{backgroundColor: sortBy === "amount" ? "#1a6985" : ""}} className=" hover:text-blue-500 p-1">Sort By Amount</button>
       </div>
-      <ul>
+      <ul >
         {expense.map((x) => (
           <li key={x.id}>
-            <Expense expenseName={x.expenseName} expenseAmount={x.amount} />
+            <Expense expenseName={x.expenseName} expenseAmount={x.amount}/>
           </li>
         ))}
 

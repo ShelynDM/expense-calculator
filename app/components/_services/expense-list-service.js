@@ -26,11 +26,11 @@ export const addExpense = async (userId, expense) => {
     }
 };
 
-export const deleteExpense = async (userId, expenseId) => {
-    try{
-        await deleteDoc(doc(db, `users/${userId}/expense/${expenseId}`));
-    }
-    catch(error){
-        console.error("Error deleting document: ", error);
-    }
-};
+// export const deleteExpense = async (userId, expenseId) => {
+//     try{
+//         await deleteDoc(doc(db, `users/${userId}/expense/${expenseId}`));
+//     }
+//     catch(error){
+//         console.error("Error deleting document: ", error);
+//     }
+// };
