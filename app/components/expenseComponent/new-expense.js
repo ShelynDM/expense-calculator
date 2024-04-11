@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { getExpenses } from "../_services/expense-list-service";
 import { useUserAuth } from "../_utils/auth-context";
 
-export default function NewExpense({onAddExpense}) {
+export default function NewExpense({onAddExpense, expense}) {
     const [expenseName, setExpenseName] = useState("");
     const [expenseAmount, setExpenseAmount] = useState(0);
     const [totalAmount, setTotalAmount] = useState(0);
@@ -17,11 +17,12 @@ export default function NewExpense({onAddExpense}) {
             alert("Please enter expense name.");
             return;
         }
-        // Generate a random id for the new expense
-        const newId = Math.random().toString(36);
+        //Generate a random id for the new expense
+        // const newId = Math.random().toString(36);
+
 
         // Create a new expense object
-        const newExpense = { id: newId, expenseName: expenseName, amount: expenseAmount };
+        const newExpense = { expenseName: expenseName, amount: expenseAmount };
         onAddExpense(newExpense);
 
 
@@ -52,7 +53,7 @@ export default function NewExpense({onAddExpense}) {
             .catch((error) => {
                 console.error("Error fetching expenses:", error);
             });
-    }, [totalAmount]);
+    }, [totalAmount, expense]);
 
     return (
         <div className="flex flex-col w-max">

@@ -23,9 +23,9 @@ export default function Expense({expenseName, expenseAmount}) {
             </div>
             {/* <div>
             {isHovering ? (
-                <button onClick={() => deleteExpense(x.id)} className=" text-white">
-                    Delete
-                </button>
+                  <div className="w-auto border-2 border-red-500 m-2 p-2">
+                    <button onClick={() => onDeleteExpense(x.id)}>X</button>
+                  </div>                
                 ): null}
             </div> */}
         </div>

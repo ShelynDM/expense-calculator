@@ -3,10 +3,9 @@ import Expense from "./expense";
 import { useState } from "react";
 
 // Function to display the list of expenses
-export default function ExpenseList({expense}) {
+export default function ExpenseList({expense, onDeleteExpense}) {
   const [sortBy, setSortBy] = useState("expenseName");
-
-
+  const [isHovering, setIsHovering] = useState(false);
 
   expense.sort((a, b) => {
     if (sortBy === "expenseName") {
@@ -18,7 +17,13 @@ export default function ExpenseList({expense}) {
   });
 
 
-
+    const handleMouseEnter = () => {
+        setIsHovering(true);
+      };
+    
+      const handleMouseLeave = () => {
+        setIsHovering(false);
+      };
 
   return (
     <div className="m-4">
@@ -28,11 +33,19 @@ export default function ExpenseList({expense}) {
       </div>
       <ul >
         {expense.map((x) => (
-          <li key={x.id}>
-            <Expense expenseName={x.expenseName} expenseAmount={x.amount}/>
+          <li key={x.id} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+            <div className="flex flex-row" >
+              <div className="flex-1">
+                <Expense expenseName={x.expenseName} expenseAmount={x.amount}/>
+              </div>
+              {isHovering ? (
+                    <div className="w-auto border-2 border-red-500 m-2 p-2">
+                      <button onClick={() => onDeleteExpense(x.id)}>X</button>
+                    </div>
+                ): null}
+            </div>
           </li>
         ))}
-
       </ul>
     </div>
   );

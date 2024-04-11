@@ -1,5 +1,5 @@
 import { db } from "../_utils/firebase";
-import { collection, getDocs, addDoc, query } from "firebase/firestore";
+import { collection, getDocs, addDoc, query, deleteDoc, doc, updateDoc} from "firebase/firestore";
 
 export const getExpenses = async (userId) => {
     try{
@@ -26,11 +26,28 @@ export const addExpense = async (userId, expense) => {
     }
 };
 
-// export const deleteExpense = async (userId, expenseId) => {
-//     try{
-//         await deleteDoc(doc(db, `users/${userId}/expense/${expenseId}`));
-//     }
-//     catch(error){
-//         console.error("Error deleting document: ", error);
-//     }
-// };
+export const deleteExpense = async (userId, expenseId) => {
+    try{
+        const docRef = doc(db, `users/${userId}/expense/${expenseId}`);
+        await deleteDoc(docRef);
+        console.log(userId, expenseId);
+    }
+    catch(error){
+        console.error("Error deleting document: ", error);
+    }
+};
+
+export const getExpenseById = async (userId, expenseId) => {
+    try {
+       const docRef = doc(db, `users/${userId}/expense/${expenseId}`);
+       const docSnap = await getDocs(docRef);
+   
+       if (docSnap.exists()) {
+         return docSnap.data();
+       } else {
+         console.log("No such document!");
+       }
+    } catch (error) {
+       console.error("Error getting document:", error);
+    }
+};
