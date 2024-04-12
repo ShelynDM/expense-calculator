@@ -6,11 +6,16 @@ import ExpenseComponent from './components/expenseComponent/page'
 import { useUserAuth } from "./components/_utils/auth-context";
 
 export default function Page() {
-    const { user, gitHubSignIn, firebaseSignOut } = useUserAuth();
+    const { user, gitHubSignIn, googleSignIn, firebaseSignOut } = useUserAuth();
     
     const signIn = async () => {
         await gitHubSignIn();
     }
+
+    const signInGoogle = async () => {
+        await googleSignIn();
+    }
+
 
     const signOut = async () => {
         await firebaseSignOut();
@@ -59,6 +64,7 @@ export default function Page() {
                 <div className="flex flex-col items-center my-12 h-screen">
                     <div className="flex justify-end">
                         <button onClick={signIn} className="m-10 p-4 bg-slate-800 hover:bg-blue-600 ">Sign in with GitHub</button>
+                        <button onClick={signInGoogle} className="m-10 p-4 bg-slate-800 hover:bg-blue-600 ">Sign in with Google</button>
                     </div>
                 </div>
                 <div className=' border-t-2 border-white text-center' >
