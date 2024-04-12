@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { getExpenses } from "../_services/expense-list-service";
 import { useUserAuth } from "../_utils/auth-context";
+import { querySnapshot, doc } from "firebase/firestore";
 
 export default function NewExpense({onAddExpense, expense}) {
     const [expenseName, setExpenseName] = useState("");
@@ -18,11 +19,11 @@ export default function NewExpense({onAddExpense, expense}) {
             return;
         }
         //Generate a random id for the new expense
-        // const newId = Math.random().toString(36);
+        const newId = Math.random().toString(36);
 
 
         // Create a new expense object
-        const newExpense = { expenseName: expenseName, amount: expenseAmount };
+        const newExpense = {expId: newId, expenseName: expenseName, amount: expenseAmount };
         onAddExpense(newExpense);
 
 
@@ -75,8 +76,8 @@ export default function NewExpense({onAddExpense, expense}) {
                 </div>
             </form>
             <div className="m-4 ring-2 ring-blue-500 p-6">
-                    <h1 className="m-2 text-2xl font-bold">Total Expense:</h1>
-                    <h2 className="m-2 text-xl"> $ {totalAmount}</h2>
+                <h1 className="m-2 text-2xl font-bold">Total Expense:</h1>
+                <h2 className="m-2 text-xl"> $ {totalAmount}</h2>
             </div>
         </div>
 

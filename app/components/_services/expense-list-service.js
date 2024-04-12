@@ -1,5 +1,5 @@
 import { db } from "../_utils/firebase";
-import { collection, getDocs, addDoc, query, deleteDoc, doc, updateDoc} from "firebase/firestore";
+import { collection, getDocs, addDoc, query, deleteDoc, doc} from "firebase/firestore";
 
 export const getExpenses = async (userId) => {
     try{
@@ -30,7 +30,7 @@ export const deleteExpense = async (userId, expenseId) => {
     try{
         const docRef = doc(db, `users/${userId}/expense/${expenseId}`);
         await deleteDoc(docRef);
-        console.log(userId, expenseId);
+        //console.log(userId, expenseId);
     }
     catch(error){
         console.error("Error deleting document: ", error);

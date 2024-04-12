@@ -50,9 +50,6 @@ export default function Page() {
     useEffect(() => {
         loadExpenses();
     }, [user]);
-
-
-
   return (
     <div>
       <RandomQuotes />

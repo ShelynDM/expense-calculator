@@ -17,13 +17,13 @@ export default function ExpenseList({expense, onDeleteExpense}) {
   });
 
 
-    const handleMouseEnter = () => {
-        setIsHovering(true);
-      };
+  const handleMouseEnter = () => {
+      setIsHovering(true);
+    };
     
-      const handleMouseLeave = () => {
-        setIsHovering(false);
-      };
+  const handleMouseLeave = () => {
+    setIsHovering(false);
+  };
 
   return (
     <div className="m-4">
@@ -33,14 +33,14 @@ export default function ExpenseList({expense, onDeleteExpense}) {
       </div>
       <ul >
         {expense.map((x) => (
-          <li key={x.id} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            <div className="flex flex-row" >
+          <li key={x.expId} >
+            <div className="flex flex-row" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
               <div className="flex-1">
                 <Expense expenseName={x.expenseName} expenseAmount={x.amount}/>
               </div>
               {isHovering ? (
-                    <div className="w-auto border-2 border-red-500 m-2 p-2">
-                      <button onClick={() => onDeleteExpense(x.id)}>X</button>
+                    <div className="w-auto border-2 border-red-500 m-2 p-2 bg-red-500">
+                      <button onClick={() => onDeleteExpense(x.id)} className=" bg-red-500">X</button>
                     </div>
                 ): null}
             </div>
