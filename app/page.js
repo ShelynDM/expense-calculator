@@ -1,4 +1,6 @@
 "use client";
+import Link from 'next/link';
+import Image from 'next/image';
 import ExpenseComponent from './components/expenseComponent/page'
 
 import { useUserAuth } from "./components/_utils/auth-context";
@@ -15,7 +17,7 @@ export default function Page() {
     }
 
     return (
-        <div>
+        <div className='m-2 justify-center'>
             {user ? (
                 <div>
                     <div className=' flex flex-row justify-between p-2 border-b-2 border-white'>
@@ -30,9 +32,17 @@ export default function Page() {
                     <div className='p-4 border-2 border-blue-500 m-4'>
                         <h1 className="text-center text-3xl font-bold ">Expense Tracker</h1>
                     </div>
+                    <div className=' h-screen'>
                     <ExpenseComponent />
-                    <div className=' border-t-2 border-white'>
-                        <p>Footer</p>
+                    </div>
+                    <div className=' border-t-2 border-white text-center' >
+                        <p>Credits</p>
+                        <p>                        
+                            <Link href="https://github.com/lukePeavey/quotable" className='hover:underline hover:text-blue-500'>Quotable</Link>
+                        </p>
+                        <p>
+                            <Link href="https://logo.com/" className='hover:underline  hover:text-blue-500'>Logo Maker</Link>
+                        </p>
                     </div>    
                 </div>        
             ) : (
@@ -43,14 +53,25 @@ export default function Page() {
                 <div className='p-4 border-2 border-blue-500 m-4'>
                     <h1 className="text-center text-3xl font-bold ">Expense Tracker</h1>
                 </div>
-                <div className="flex flex-col items-center m-52 ">
+                <div className='flex justify-center my-14'>
+                        <Image src="/xtract-logo.jpg" alt="Xtract Logo" width={200} height={200}  style={{width: 'auto', height: 'auto'}} priority></Image>           
+                </div>
+                <div className="flex flex-col items-center my-12 h-screen">
                     <div className="flex justify-end">
                         <button onClick={signIn} className="m-10 p-4 bg-slate-800 hover:bg-blue-600 ">Sign in with GitHub</button>
                     </div>
                 </div>
-                <div className=' border-t-2 border-white'>
-                    <p>Footer</p>
-                </div> 
+                <div className=' border-t-2 border-white text-center' >
+                <div className=' border-t-2 border-white text-center' >
+                        <p>Credits</p>
+                        <p>                        
+                            <Link href="https://github.com/lukePeavey/quotable" className='hover:underline hover:text-blue-500'>Quotable</Link>
+                        </p>
+                        <p>
+                            <Link href="https://logo.com/" className='hover:underline  hover:text-blue-500'>Logo Maker</Link>
+                        </p>
+                    </div>    
+                </div>   
             </div>
             )}
         </div>

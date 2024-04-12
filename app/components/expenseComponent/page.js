@@ -5,6 +5,7 @@ import NewExpense from "./new-expense";
 import RandomQuotes from "./random-quotes";
 import { getExpenses, addExpense, deleteExpense, updateExpense } from "../_services/expense-list-service";
 import { useUserAuth } from "../_utils/auth-context";
+import Image from 'next/image';
 //import { updateDoc } from "firebase/firestore";
 
 export default function Page() {
@@ -57,10 +58,14 @@ export default function Page() {
             <div>
                 <NewExpense onAddExpense={handleAddExpense} 
                 expense={expense}/>
+                <div className='flex justify-center h-auto w-auto my-5'>
+                    <Image src="/xtract-logo.jpg" alt="Xtract Logo" width={200} height={200}  style={{width: 'auto', height: 'auto'}} priority></Image>           
+                </div>
             </div>
             <div className="w-3/6">
                 <ExpenseList expense={expense} onDeleteExpense={handleDelete} totalAmount={totalAmount} setTotalAmount={setTotalAmount}/>
             </div>
+
         </div>
     </div>
   );
