@@ -28,14 +28,14 @@ export default function NewExpense({onAddExpense, expense}) {
 
 
         // calculate the total expense amount from db
-        getExpenses(user.uid)
-        .then((expenses) => {
-            const totalAmount = expenses.reduce((total, expense) => total + expense.amount, 0);
-            setTotalAmount(totalAmount + expenseAmount);
-        })
-        .catch((error) => {
-            console.error("Error fetching expenses:", error);
-        });
+        // getExpenses(user.uid)
+        // .then((expenses) => {
+        //     const totalAmount = expenses.reduce((total, expense) => total + expense.amount, 0);
+        //     setTotalAmount(totalAmount + expenseAmount);
+        // })
+        // .catch((error) => {
+        //     console.error("Error fetching expenses:", error);
+        // });
 
 
         // Clear the form fields
