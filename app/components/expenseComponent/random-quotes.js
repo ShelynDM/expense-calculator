@@ -1,4 +1,3 @@
-"use client";
 import { useState, useEffect } from "react";
 
 
@@ -6,6 +5,7 @@ export default function RandomQuotes() {
     const [quote, setQuote] = useState("");
     const [author, setAuthor] = useState("");
 
+    // Function to fetch a random quote
     const fetchQuote = async () => {
         const response = await fetch("https://api.quotable.io/random");
         const data = await response.json();
@@ -15,6 +15,7 @@ export default function RandomQuotes() {
     
     };
 
+    // Fetch a random quote when the component mounts
     useEffect(() => {
         fetchQuote();
     }, []);

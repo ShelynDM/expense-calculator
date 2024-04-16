@@ -8,15 +8,17 @@ import { useUserAuth } from "./components/_utils/auth-context";
 export default function Page() {
     const { user, gitHubSignIn, googleSignIn, firebaseSignOut } = useUserAuth();
     
+    // Function to sign in with GitHub
     const signIn = async () => {
         await gitHubSignIn();
     }
 
+    // Function to sign in with Google
     const signInGoogle = async () => {
         await googleSignIn();
     }
 
-
+    // Function to sign out of Firebase
     const signOut = async () => {
         await firebaseSignOut();
     }

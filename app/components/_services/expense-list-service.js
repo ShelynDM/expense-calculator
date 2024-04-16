@@ -1,6 +1,7 @@
 import { db } from "../_utils/firebase";
 import { collection, getDocs, addDoc, query, deleteDoc, doc} from "firebase/firestore";
 
+// Function to get all expenses from the database
 export const getExpenses = async (userId) => {
     try{
         const expense = [];
@@ -16,6 +17,7 @@ export const getExpenses = async (userId) => {
     }
 };
 
+// Function to add a new expense to the database
 export const addExpense = async (userId, expense) => {
     try{
         const docRef = await addDoc(collection(db, `users/${userId}/expense`), expense);
@@ -26,6 +28,7 @@ export const addExpense = async (userId, expense) => {
     }
 };
 
+// Function to delete an existing expense in the database
 export const deleteExpense = async (userId, expenseId) => {
     try{
         const docRef = doc(db, `users/${userId}/expense/${expenseId}`);
@@ -34,20 +37,5 @@ export const deleteExpense = async (userId, expenseId) => {
     }
     catch(error){
         console.error("Error deleting document: ", error);
-    }
-};
-
-export const getExpenseById = async (userId, expenseId) => {
-    try {
-       const docRef = doc(db, `users/${userId}/expense/${expenseId}`);
-       const docSnap = await getDocs(docRef);
-   
-       if (docSnap.exists()) {
-         return docSnap.data();
-       } else {
-         console.log("No such document!");
-       }
-    } catch (error) {
-       console.error("Error getting document:", error);
     }
 };

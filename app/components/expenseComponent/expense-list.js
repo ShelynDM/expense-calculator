@@ -1,12 +1,12 @@
-"use client";
+
 import Expense from "./expense";
 import { useState } from "react";
 
-// Function to display the list of expenses
 export default function ExpenseList({expense, onDeleteExpense}) {
   const [sortBy, setSortBy] = useState("expenseName");
   const [isHovering, setIsHovering] = useState(false);
 
+  // Sort the expenses based on the selected sort option
   expense.sort((a, b) => {
     if (sortBy === "expenseName") {
       return a.expenseName.localeCompare(b.expenseName);
@@ -16,11 +16,12 @@ export default function ExpenseList({expense, onDeleteExpense}) {
 
   });
 
-
+  // Function to handle mouse enter event
   const handleMouseEnter = () => {
       setIsHovering(true);
     };
-    
+  
+  // Function to handle mouse leave event
   const handleMouseLeave = () => {
     setIsHovering(false);
   };

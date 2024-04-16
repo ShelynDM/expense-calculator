@@ -6,35 +6,35 @@ import RandomQuotes from "./random-quotes";
 import { getExpenses, addExpense, deleteExpense, updateExpense } from "../_services/expense-list-service";
 import { useUserAuth } from "../_utils/auth-context";
 import Image from 'next/image';
-//import { updateDoc } from "firebase/firestore";
 
 export default function Page() {
-    const { user } = useUserAuth();
-    const [expense, setExpense] = useState([]);
-    const [totalAmount, setTotalAmount] = useState(0);
+  const { user } = useUserAuth();
+  const [expense, setExpense] = useState([]);
+  const [totalAmount, setTotalAmount] = useState(0);
 
-    const loadExpenses = async () => {
-      const expenses = await getExpenses(user.uid);
-      setExpense(expenses);
+    // Function to fetch expenses from the database and update the total amount
+  const loadExpenses = async () => {
+    const expenses = await getExpenses(user.uid);
+    setExpense(expenses);
 
-      // Recalculate the total amount
-      const updatedTotalAmount = expense.reduce((total, expenseItem) => total + expenseItem.amount, 0);
-      setTotalAmount(updatedTotalAmount);
-    };
+    // Recalculate the total amount
+    const updatedTotalAmount = expense.reduce((total, expenseItem) => total + expenseItem.amount, 0);
+    setTotalAmount(updatedTotalAmount);
+  };
 
 
 
-    // Function to handle the addition of a new expense
-    function handleAddExpense(newExpense) {
-      addExpense(user.uid, newExpense).then((docRef) => {
-        setExpense((prevItems) => {
-          return [{ id: docRef.id, ...newExpense }, ...prevItems];
-        });
+  // Function to handle the addition of a new expense
+  function handleAddExpense(newExpense) {
+    addExpense(user.uid, newExpense).then((docRef) => {
+      setExpense((prevItems) => {
+        return [{ id: docRef.id, ...newExpense }, ...prevItems];
       });
-    };
+    });
+  };
 
   // Function to handle the deletion of an expense
-    function handleDelete(expenseId) {
+  function handleDelete(expenseId) {
     // Delete expense in the database
     deleteExpense(user.uid, expenseId, expense).then(() => {
       // Update local state to remove the deleted expense
@@ -48,9 +48,9 @@ export default function Page() {
 
 
 
-    useEffect(() => {
-        loadExpenses();
-    }, [user]);
+  useEffect(() => {
+      loadExpenses();
+  }, [user]);
   return (
     <div>
       <RandomQuotes />
@@ -63,7 +63,7 @@ export default function Page() {
                 </div>
             </div>
             <div className="w-3/6">
-                <ExpenseList expense={expense} onDeleteExpense={handleDelete} totalAmount={totalAmount} setTotalAmount={setTotalAmount}/>
+                <ExpenseList expense={expense} onDeleteExpense={handleDelete}/>
             </div>
 
         </div>
