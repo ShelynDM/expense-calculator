@@ -39,13 +39,13 @@ export default function Page() {
                     <div className='p-4 border-2 border-blue-500 m-4'>
                         <h1 className="text-center text-3xl font-bold ">Expense Tracker</h1>
                     </div>
-                    <div className=' h-screen'>
+                    <div>
                     <ExpenseComponent />
                     </div>
                     <div className=' border-t-2 border-white text-center' >
                         <p>Credits</p>
                         <p>                        
-                            <Link href="https://github.com/lukePeavey/quotable" className='hover:underline hover:text-blue-500'>Quotable</Link>
+                            <Link href="https://github.com/lukePeavey/quotable" className='hover:underline hover:text-blue-500'>Quotable API</Link>
                         </p>
                         <p>
                             <Link href="https://logo.com/" className='hover:underline  hover:text-blue-500'>Logo Maker</Link>
@@ -73,7 +73,7 @@ export default function Page() {
                 <div className=' border-t-2 border-white text-center' >
                         <p>Credits</p>
                         <p>                        
-                            <Link href="https://github.com/lukePeavey/quotable" className='hover:underline hover:text-blue-500'>Quotable</Link>
+                            <Link href="https://github.com/lukePeavey/quotable" className='hover:underline hover:text-blue-500'>Quotable API</Link>
                         </p>
                         <p>
                             <Link href="https://logo.com/" className='hover:underline  hover:text-blue-500'>Logo Maker</Link>

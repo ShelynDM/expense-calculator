@@ -1,13 +1,13 @@
 // Functional component that displays the name and amount of an expense
 export default function Expense({expenseName, expenseAmount}) {
     return (
-        <div className="flex-column">
-            <div className="flex flex-row justify-between w-auto border-2 border-blue-500 m-2 p-2"  >            
+        <div className="flex-column w-auto ">
+            <div className="flex flex-row justify-between mx-4"  >            
                 <div>
-                    {expenseName}
+                    <p>{expenseName}</p>
                 </div>
                 <div>
-                    $ {expenseAmount}
+                    <p>${expenseAmount}</p>
                 </div>
             </div>
         </div>

@@ -3,6 +3,7 @@ import { getExpenses } from "../_services/expense-list-service";
 import { useUserAuth } from "../_utils/auth-context";
 
 export default function NewExpense({onAddExpense, expense}) {
+    const [expenseDate, setExpenseDate] = useState(new Date().toISOString().split('T')[0]);
     const [expenseName, setExpenseName] = useState("");
     const [expenseAmount, setExpenseAmount] = useState("");
     const [totalAmount, setTotalAmount] = useState(0);
@@ -41,32 +42,46 @@ export default function NewExpense({onAddExpense, expense}) {
 
 
         // Create a new expense object
-        const newExpense = {expId: newId, expenseName: expenseName, amount: expenseAmount };
+        const newExpense = {expId: newId, expenseDate: expenseDate, expenseName: expenseName, amount: expenseAmount };
         onAddExpense(newExpense);
+
+        calculateTotal();
 
 
         // Clear the form fields
         setExpenseName("");
         setExpenseAmount(0);
+
+    };
+
+    // Function to calculate the total expenses
+    function calculateTotal() {
+        getExpenses(user.uid)
+        .then((expenses) => {
+            const totalAmount = expenses.reduce((total, expense) => total + expense.amount, 0);
+            setTotalAmount(totalAmount);
+        })
+        .catch((error) => {
+            console.error("Error fetching expenses:", error);
+        });
     };
 
     
     useEffect(() => {
         // Fetch expenses from the database when the component mounts
-        getExpenses(user.uid)
-            .then((expenses) => {
-                const totalAmount = expenses.reduce((total, expense) => total + expense.amount, 0);
-                setTotalAmount(totalAmount);
-            })
-            .catch((error) => {
-                console.error("Error fetching expenses:", error);
-            });
+        calculateTotal();
     }, [totalAmount, expense]);
 
     return (
         <div className="flex flex-col w-max">
             <form onSubmit={handleSubmit} >
                 <div className="flex flex-col m-4 ring-2 p-6 ring-blue-500 ">
+                    <label>
+                        <div className="m-1">
+                            Date:
+                        </div>
+                        <input className="text-black m-1" type="date" value={expenseDate} onChange={(e) => setExpenseDate(new Date(e.target.value).toISOString().split('T')[0])} />
+                    </label>
                     <label>
                         <div className="m-1">
                             Expense Name:
@@ -82,6 +97,7 @@ export default function NewExpense({onAddExpense, expense}) {
                     <button type="submit" className=" bg-slate-700 m-1">Add Expense</button>
                 </div>
             </form>
+            Overview of the total expenses:
             <div className="m-4 ring-2 ring-blue-500 p-6">
                 <h1 className="m-2 text-2xl font-bold">Total Expense:</h1>
                 <h2 className="m-2 text-xl"> $ {totalAmount}</h2>
