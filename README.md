@@ -10,13 +10,13 @@ Sign in with **GitHub** or **Google** to start tracking your expenses.
 
 This web application is designed to help you keep track of your expenses.
 
-You can **add new expenses**, **view a list of all your expenses**, and **delete expenses** that you no longer need.
+You can **add new expenses**, **view a list of all your expenses** grouped by the date added, and **delete expenses** that you no longer need.
 
-The application also displays the total amount of all your expenses, which is updated in real-time as you add or delete expenses.
+The application also displays the total amount and average of all your expenses per day, which is updated in real-time as you add or delete expenses.
 
-This feature allows you to easily keep track of your spending and manage your budget more effectively.
+These features allows you to easily keep track of your spending and manage your budget more effectively.
 
-The **sorting feature** allows you to sort your expenses by name or amount, making it easier to find specific expenses.
+The **sorting feature** allows you to sort your expenses by date, name or amount, making it easier to find specific expenses.
 
 Additonally, the application displays random quote to inspire and motivate you as you manage your expenses.
 
