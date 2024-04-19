@@ -1,13 +1,9 @@
-import { useEffect, useState } from "react";
-import { useUserAuth } from "../_utils/auth-context";
+import { useState } from "react";
 
-
-
-export default function NewExpense({onAddExpense, expense}) {
+export default function NewExpense({onAddExpense}) {
     const [expenseDate, setExpenseDate] = useState(() => new Date().toISOString().split('T')[0]);
     const [expenseName, setExpenseName] = useState("");
     const [expenseAmount, setExpenseAmount] = useState("");
-    const { user } = useUserAuth();
 
 
     // Function to handle the form submission
@@ -49,10 +45,6 @@ export default function NewExpense({onAddExpense, expense}) {
         setExpenseAmount(0);
 
     };
-
-
-    useEffect(() => {
-    }, [expense, user]);
 
     return (
         <div className="flex flex-col w-max">

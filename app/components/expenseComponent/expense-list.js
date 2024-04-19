@@ -63,13 +63,15 @@ export default function ExpenseList({expense, onDeleteExpense}) {
       </div>
       {Object.keys(groupedExpenses).map((date) => (
         <div key={date} className="border-2 border-blue-500 m-2 p-2">
-          <p> Number of Expenses: {groupedExpenses[date].expenses.length}</p>
-          <p> Average expense: ${(groupedExpenses[date].total /groupedExpenses[date].expenses.length).toFixed(2)}</p>
+          <div className= "bg-slate-800">
+            <p> Number of Expenses: {groupedExpenses[date].expenses.length}</p>
+            <p> Average expense: $ {(groupedExpenses[date].total /groupedExpenses[date].expenses.length).toFixed(2)}</p>
+          </div>
           <div className="flex flex-row justify-between border-b-2 font-bold">
             <h2>{date}</h2>
             <div className="flex flex-col">
                 <p>Total: </p>
-                <p>${groupedExpenses[date].total.toFixed(2)}</p>
+                <p>$ {groupedExpenses[date].total.toFixed(2)}</p>
             </div>
           </div>
           <ul>

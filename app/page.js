@@ -24,7 +24,7 @@ export default function Page() {
     }
 
     return (
-        <div className='m-2 justify-center bg-black'>
+        <div className='m-2 justify-center bg-black text-white'>
             {user ? (
                 <div>
                     <div className=' flex flex-row justify-between p-2 border-b-2 border-white'>

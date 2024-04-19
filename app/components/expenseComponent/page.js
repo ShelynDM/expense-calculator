@@ -26,6 +26,7 @@ export default function Page() {
         loadExpenses();
     }, [user]);
 
+    // Function to handle adding an expense
     const handleAddExpense = (newExpense) => {
         addExpense(user.uid, newExpense).then(() => {
             loadExpenses();
@@ -49,6 +50,11 @@ export default function Page() {
             const expDate = new Date(exp.expenseDate);
             return expDate >= new Date(fromDate) && expDate <= new Date(toDate);
         });
+
+        if (new Date(fromDate) > new Date(toDate)) {
+            alert(' "From Date" cannot be after "To date".');
+            return;
+        }
         const total = filteredExpenses.reduce((acc, curr) => acc + curr.amount, 0);
         setCalculatedTotal(total);
     };
