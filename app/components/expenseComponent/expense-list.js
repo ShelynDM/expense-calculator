@@ -7,12 +7,12 @@ export default function ExpenseList({expense, onDeleteExpense}) {
 
   // Sort the expenses based on the selected sort option
   const sortedExpenses = [...expense].sort((a, b) => {
-    if (sortBy === "expenseName") {
-      return a.expenseName.localeCompare(b.expenseName) || new Date(a.expenseDate) - new Date(b.expenseDate);
+    if (sortBy === "expenseDate") {
+      return new Date(a.expenseDate) - new Date(b.expenseDate);
     } else if (sortBy === "amount") {
       return b.amount - a.amount || new Date(a.expenseDate) - new Date(b.expenseDate);
     } else {
-      return new Date(b.expenseDate) - new Date(a.expenseDate);
+      return a.expenseName.localeCompare(b.expenseName) || new Date(a.expenseDate) - new Date(b.expenseDate);
     }
   });
 
@@ -64,7 +64,7 @@ export default function ExpenseList({expense, onDeleteExpense}) {
           <h2 className="font-bold border-b-2">{date}</h2>
           <ul>
             {groupedExpenses[date].map((x) => (
-              <li key={x.expId}>
+              <li key={x.id}>
                 <div className="flex flex-row" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                   <div className="flex-1">
                     <Expense expenseName={x.expenseName} expenseAmount={x.amount} />

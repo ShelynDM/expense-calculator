@@ -2,12 +2,26 @@ import { useEffect, useState } from "react";
 import { getExpenses } from "../_services/expense-list-service";
 import { useUserAuth } from "../_utils/auth-context";
 
+
+
 export default function NewExpense({onAddExpense, expense}) {
-    const [expenseDate, setExpenseDate] = useState(new Date().toISOString().split('T')[0]);
+    const [expenseDate, setExpenseDate] = useState(() => new Date().toISOString().split('T')[0]);
     const [expenseName, setExpenseName] = useState("");
     const [expenseAmount, setExpenseAmount] = useState("");
     const [totalAmount, setTotalAmount] = useState(0);
     const { user } = useUserAuth();
+
+    // Function to calculate the total expenses
+    function calculateTotal() {
+        getExpenses(user.uid)
+        .then((expenses) => {
+            const totalAmount = expenses.reduce((total, expense) => total + expense.amount, 0);
+            setTotalAmount(totalAmount);
+        })
+        .catch((error) => {
+            console.error("Error fetching expenses:", error);
+        });
+    };
 
     // Function to handle the form submission
     const handleSubmit = (e) => {
@@ -38,11 +52,11 @@ export default function NewExpense({onAddExpense, expense}) {
             return;
         }
         //Generate a random id for the new expense
-        const newId = Math.random().toString(36);
+        //const newId = Math.random().toString(36);
 
 
         // Create a new expense object
-        const newExpense = {expId: newId, expenseDate: expenseDate, expenseName: expenseName, amount: expenseAmount };
+        const newExpense = {expenseDate: expenseDate, expenseName: expenseName, amount: expenseAmount };
         onAddExpense(newExpense);
 
         calculateTotal();
@@ -54,23 +68,13 @@ export default function NewExpense({onAddExpense, expense}) {
 
     };
 
-    // Function to calculate the total expenses
-    function calculateTotal() {
-        getExpenses(user.uid)
-        .then((expenses) => {
-            const totalAmount = expenses.reduce((total, expense) => total + expense.amount, 0);
-            setTotalAmount(totalAmount);
-        })
-        .catch((error) => {
-            console.error("Error fetching expenses:", error);
-        });
-    };
+
 
     
     useEffect(() => {
         // Fetch expenses from the database when the component mounts
         calculateTotal();
-    }, [totalAmount, expense]);
+    }, [expense, user]);
 
     return (
         <div className="flex flex-col w-max">

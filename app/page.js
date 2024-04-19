@@ -50,6 +50,7 @@ export default function Page() {
                         <p>
                             <Link href="https://logo.com/" className='hover:underline  hover:text-blue-500'>Logo Maker</Link>
                         </p>
+                        <p>© Developed by <Link href="https://github.com/ShelynDM" className='hover:underline hover:text-blue-500'>Shelyn Del Mundo</Link> 2024</p>
                     </div>    
                 </div>        
             ) : (
@@ -78,6 +79,8 @@ export default function Page() {
                         <p>
                             <Link href="https://logo.com/" className='hover:underline  hover:text-blue-500'>Logo Maker</Link>
                         </p>
+                        <p>© Developed by <Link href="https://github.com/ShelynDM" className='hover:underline hover:text-blue-500'>Shelyn Del Mundo</Link> 2024</p>
+
                     </div>    
                 </div>   
             </div>

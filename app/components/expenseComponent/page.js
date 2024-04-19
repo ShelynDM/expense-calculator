@@ -20,7 +20,7 @@ export default function Page() {
       setExpense(expenses);
 
       // Recalculate the total amount
-      const updatedTotalAmount = expense.reduce((total, expenseItem) => total + expenseItem.amount, 0);
+      const updatedTotalAmount = expenses.reduce((total, expenseItem) => total + expenseItem.amount, 0);
       setTotalAmount(updatedTotalAmount);
 
     };
@@ -92,7 +92,7 @@ export default function Page() {
                     </div>
                 </div>
                 <div className="w-3/6">
-                    <ExpenseList expense={expense} onDeleteExpense={handleDelete} />
+                    <ExpenseList expense={expense} onDeleteExpense={handleDelete} totalAmount={totalAmount}/>
                 </div>
             </div>
         </div>
