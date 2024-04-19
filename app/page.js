@@ -24,7 +24,7 @@ export default function Page() {
     }
 
     return (
-        <div className='m-2 justify-center'>
+        <div className='m-2 justify-center bg-black'>
             {user ? (
                 <div>
                     <div className=' flex flex-row justify-between p-2 border-b-2 border-white'>
@@ -66,12 +66,12 @@ export default function Page() {
                 </div>
                 <div className="flex flex-col items-center my-12 h-screen">
                     <div className="flex justify-end">
-                        <button onClick={signIn} className="m-10 p-4 bg-slate-800 hover:bg-blue-600 ">Sign in with GitHub</button>
-                        <button onClick={signInGoogle} className="m-10 p-4 bg-slate-800 hover:bg-blue-600 ">Sign in with Google</button>
+                        <button onClick={signIn} className="m-10 p-4 bg-slate-800 hover:bg-blue-600 text-white">Sign in with GitHub</button>
+                        <button onClick={signInGoogle} className="m-10 p-4 bg-slate-800 hover:bg-blue-600 text-white">Sign in with Google</button>
                     </div>
                 </div>
                 <div className=' border-t-2 border-white text-center' >
-                <div className=' border-t-2 border-white text-center' >
+                <div className=' border-t-2 border-white text-center ' >
                         <p>Credits</p>
                         <p>                        
                             <Link href="https://github.com/lukePeavey/quotable" className='hover:underline hover:text-blue-500'>Quotable API</Link>

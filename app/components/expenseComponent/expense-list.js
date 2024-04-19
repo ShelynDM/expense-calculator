@@ -20,7 +20,9 @@ export default function ExpenseList({expense, onDeleteExpense}) {
   const groupedExpenses = sortedExpenses.reduce((acc, cur) => {
     const date = new Date(cur.expenseDate);
     const formattedDate = date.toISOString().split('T')[0];
-    acc[formattedDate] = [...(acc[formattedDate] || []), cur];
+    acc[formattedDate] = acc[formattedDate] || { total: 0, expenses: [] };
+    acc[formattedDate].expenses.push(cur);
+    acc[formattedDate].total += cur.amount;
     return acc;
   }, {});
 
@@ -61,20 +63,26 @@ export default function ExpenseList({expense, onDeleteExpense}) {
       </div>
       {Object.keys(groupedExpenses).map((date) => (
         <div key={date} className="border-2 border-blue-500 m-2 p-2">
-          <h2 className="font-bold border-b-2">{date}</h2>
+          <p> Number of Expenses: {groupedExpenses[date].expenses.length}</p>
+          <p> Average expense: ${(groupedExpenses[date].total /groupedExpenses[date].expenses.length).toFixed(2)}</p>
+          <div className="flex flex-row justify-between border-b-2 font-bold">
+            <h2>{date}</h2>
+            <div className="flex flex-col">
+                <p>Total: </p>
+                <p>${groupedExpenses[date].total.toFixed(2)}</p>
+            </div>
+          </div>
           <ul>
-            {groupedExpenses[date].map((x) => (
+            {groupedExpenses[date].expenses.map((x) => (
               <li key={x.id}>
                 <div className="flex flex-row" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                   <div className="flex-1">
                     <Expense expenseName={x.expenseName} expenseAmount={x.amount} />
                   </div>
                   {isHovering ? (
-                    <div className="w-auto border-2 border-red-500 mx-2 px-2 bg-red-500">
-                      <button onClick={() => onDeleteExpense(x.id)} className="bg-red-500">
+                      <button onClick={() => onDeleteExpense(x.id)} className=" text-white bg-blue-500 hover:bg-red-600 w-auto border-2 border-black mx-2 px-2">
                         X
                       </button>
-                    </div>
                   ) : null}
                 </div>
               </li>

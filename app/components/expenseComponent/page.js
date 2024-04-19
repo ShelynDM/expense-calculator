@@ -10,21 +10,18 @@ import Image from 'next/image';
 export default function Page() {
     const { user } = useUserAuth();
     const [expense, setExpense] = useState([]);
-    const [totalAmount, setTotalAmount] = useState(0);
     const [fromDate, setFromDate] = useState("");
     const [toDate, setToDate] = useState("");
     const [calculatedTotal, setCalculatedTotal] = useState(0);
 
+    // Function to load the expenses
     const loadExpenses = async () => {
       const expenses = await getExpenses(user.uid);
       setExpense(expenses);
 
-      // Recalculate the total amount
-      const updatedTotalAmount = expenses.reduce((total, expenseItem) => total + expenseItem.amount, 0);
-      setTotalAmount(updatedTotalAmount);
-
     };
 
+    // Load the expenses when the user changes
     useEffect(() => {
         loadExpenses();
     }, [user]);
@@ -35,23 +32,18 @@ export default function Page() {
         });
     };
 
+    // Function to handle deleting an expense
     const handleDelete = (expenseId) => {
       deleteExpense(user.uid, expenseId).then(() => {
           // Remove the deleted expense from the expense state
           setExpense((prevExpenses) => prevExpenses.filter((expense) => expense.id !== expenseId));
   
-          // Calculate the new total amount
-          const updatedTotalAmount = expense.reduce((total, expenseItem) => {
-              return expenseItem.id !== expenseId ? total + expenseItem.amount : total;
-          }, 0);
-  
-          // Update the total amount state
-          setTotalAmount(updatedTotalAmount);
       }).catch((error) => {
           console.error("Error deleting expense:", error);
       });
-  };
+    };
 
+    // Function to calculate the total expenses between the selected dates
     const handleCalculateTotal = () => {
         const filteredExpenses = expense.filter((exp) => {
             const expDate = new Date(exp.expenseDate);
@@ -83,7 +75,7 @@ export default function Page() {
                         <input className="text-black" type="date" value={toDate} onChange={(e) => setToDate(e.target.value)} />
                       </div>
                       <div className="flex flex-col justify-center">
-                        <button onClick={handleCalculateTotal} className=" bg-slate-700 m-1">Calculate Total</button>
+                        <button onClick={handleCalculateTotal} className=" bg-slate-700 m-1 text-white hover:bg-sky-600">Calculate Total</button>
                         <p className="text-center font-extrabold text-2xl">$ {calculatedTotal}</p>
                       </div>
                     </div>
@@ -92,7 +84,7 @@ export default function Page() {
                     </div>
                 </div>
                 <div className="w-3/6">
-                    <ExpenseList expense={expense} onDeleteExpense={handleDelete} totalAmount={totalAmount}/>
+                    <ExpenseList expense={expense} onDeleteExpense={handleDelete}/>
                 </div>
             </div>
         </div>
