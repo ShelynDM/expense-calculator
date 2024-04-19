@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect } from "react";
 import ExpenseList from "./expense-list";
 import NewExpense from "./new-expense";
